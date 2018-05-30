@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+    fakebook:
+        build:
+          context: ..
+          dockerfile: docker/fakebook/Dockerfile
+          args:
+            CONTEXT: $CORS_EXAMPLE_CONTEXT
+        ports:
+          - "8081:8081"
+        image: fakebook-image
+        container_name: fakebook
+
+    clickbait:
+      build:
+            context: ..
+            dockerfile: docker/clickbait/Dockerfile
+            args:
+              CONTEXT: $CORS_EXAMPLE_CONTEXT
+      ports:
+        - "8080:8080"
+      depends_on:
+        - fakebook
+      links:
+        - "fakebook"
+      image: clickbait-image
+      container_name: clickbait
